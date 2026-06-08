@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "workspaces",
+  "info": {
+    "singularName": "workspace",
+    "pluralName": "workspaces",
+    "displayName": "Workspace",
+    "description": "AIverse user workspace — organizes conversations and tool outputs"
+  },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
+  "attributes": {
+    "name": { "type": "string", "required": true, "maxLength": 100 },
+    "description": { "type": "text" },
+    "icon": { "type": "string", "default": "folder" },
+    "color": { "type": "string", "default": "#8b5cf6" },
+    "is_pinned": { "type": "boolean", "default": false },
+    "last_used_at": { "type": "datetime" },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

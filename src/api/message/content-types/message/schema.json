@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "messages",
+  "info": {
+    "singularName": "message",
+    "pluralName": "messages",
+    "displayName": "Message",
+    "description": "Individual message in an AIverse conversation"
+  },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
+  "attributes": {
+    "role": {
+      "type": "enumeration",
+      "enum": ["user", "assistant", "system"],
+      "required": true
+    },
+    "content": { "type": "text", "required": true },
+    "tool": {
+      "type": "enumeration",
+      "enum": ["chat", "code", "image", "video"],
+      "required": true,
+      "default": "chat"
+    },
+    "metadata": { "type": "json" },
+    "tokens_used": { "type": "integer" },
+    "latency_ms": { "type": "integer" },
+    "is_error": { "type": "boolean", "default": false },
+    "conversation": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::conversation.conversation"
+    }
+  }
+}

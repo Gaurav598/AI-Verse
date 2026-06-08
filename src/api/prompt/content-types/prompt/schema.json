@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "prompts",
+  "info": {
+    "singularName": "prompt",
+    "pluralName": "prompts",
+    "displayName": "Prompt",
+    "description": "Saved prompt templates in AIverse"
+  },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
+  "attributes": {
+    "title": { "type": "string", "required": true, "maxLength": 200 },
+    "content": { "type": "text", "required": true },
+    "tool": {
+      "type": "enumeration",
+      "enum": ["chat", "code", "image", "video", "all"],
+      "default": "all"
+    },
+    "category": { "type": "string" },
+    "tags": { "type": "json" },
+    "is_public": { "type": "boolean", "default": false },
+    "use_count": { "type": "integer", "default": 0 },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

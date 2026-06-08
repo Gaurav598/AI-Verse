@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tool_runs",
+  "info": {
+    "singularName": "tool-run",
+    "pluralName": "tool-runs",
+    "displayName": "Tool Run",
+    "description": "Records the usage of an AIverse tool"
+  },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
+  "attributes": {
+    "tool": {
+      "type": "enumeration",
+      "enum": ["chat", "code", "image", "video"],
+      "required": true
+    },
+    "action": { "type": "string" },
+    "input_prompt": { "type": "text", "required": true },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pending", "success", "failed"],
+      "default": "success"
+    },
+    "latency_ms": { "type": "integer" },
+    "tokens_used": { "type": "integer" },
+    "error_message": { "type": "string" },
+    "workspace": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::workspace.workspace"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

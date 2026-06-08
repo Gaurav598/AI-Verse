@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-cms-strapi
+  labels:
+    app: ai-cms
+    component: strapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ai-cms
+      component: strapi
+  template:
+    metadata:
+      labels:
+        app: ai-cms
+        component: strapi
+    spec:
+      containers:
+        - name: strapi
+          image: your-registry/ai-cms-strapi:latest
+          ports:
+            - containerPort: 1337
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: DATABASE_CLIENT
+              value: postgres
+            - name: DATABASE_HOST
+              value: postgres-service
+            - name: REDIS_HOST
+              value: redis-service
+          envFrom:
+            - secretRef:
+                name: ai-cms-secrets
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"
+          livenessProbe:
+            httpGet:
+              path: /live
+              port: 1337
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 1337
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: uploads
+              mountPath: /app/public/uploads
+      volumes:
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: strapi-uploads-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: strapi-service
+spec:
+  selector:
+    app: ai-cms
+    component: strapi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 1337
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ai-cms-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: api.aicms.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: strapi-service
+                port:
+                  number: 80

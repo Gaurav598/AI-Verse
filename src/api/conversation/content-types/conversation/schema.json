@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "conversations",
+  "info": {
+    "singularName": "conversation",
+    "pluralName": "conversations",
+    "displayName": "Conversation",
+    "description": "AIverse conversation session"
+  },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
+  "attributes": {
+    "title": { "type": "string", "maxLength": 200 },
+    "tool": {
+      "type": "enumeration",
+      "enum": ["chat", "code", "image", "video"],
+      "required": true,
+      "default": "chat"
+    },
+    "model": { "type": "string", "default": "gemini-1.5-flash" },
+    "is_pinned": { "type": "boolean", "default": false },
+    "is_archived": { "type": "boolean", "default": false },
+    "message_count": { "type": "integer", "default": 0 },
+    "last_message_at": { "type": "datetime" },
+    "workspace": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::workspace.workspace"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

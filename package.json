@@ -1,0 +1,66 @@
+{
+  "name": "aiverse-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AIverse API — Multi-Modal AI Workspace Backend powered by Strapi v5, PostgreSQL, Redis, and Google Gemini",
+  "scripts": {
+    "build": "strapi build",
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "strapi": "strapi",
+    "db:migrate": "node database/migrations/run-migrations.js",
+    "db:seed": "node database/seed/production-seed.js"
+  },
+  "dependencies": {
+    "@strapi/plugin-cloud": "5.33.3",
+    "@strapi/plugin-users-permissions": "5.33.3",
+    "@strapi/strapi": "5.33.3",
+    "@google/generative-ai": "^0.21.0",
+    "@bull-board/api": "^5.21.0",
+    "@bull-board/koa": "^5.21.0",
+    "bullmq": "^5.8.0",
+    "ioredis": "^5.3.2",
+    "pg": "^8.12.0",
+    "winston": "^3.13.0",
+    "nodemailer": "^6.9.0",
+    "uuid": "^10.0.0",
+    "bcrypt": "^5.1.1",
+    "zod": "^3.23.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.0.0",
+    "styled-components": "^6.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=22.x.x",
+    "npm": ">=6.0.0"
+  },
+  "overrides": {
+    "buffer-equal-constant-time": "^1.0.1",
+    "@strapi/admin": "5.33.3",
+    "@strapi/content-manager": "5.33.3",
+    "@strapi/content-releases": "5.33.3",
+    "@strapi/content-type-builder": "5.33.3",
+    "@strapi/core": "5.33.3",
+    "@strapi/data-transfer": "5.33.3",
+    "@strapi/database": "5.33.3",
+    "@strapi/email": "5.33.3",
+    "@strapi/generators": "5.33.3",
+    "@strapi/i18n": "5.33.3",
+    "@strapi/logger": "5.33.3",
+    "@strapi/permissions": "5.33.3",
+    "@strapi/plugin-cloud": "5.33.3",
+    "@strapi/plugin-users-permissions": "5.33.3",
+    "@strapi/provider-email-sendmail": "5.33.3",
+    "@strapi/provider-upload-local": "5.33.3",
+    "@strapi/review-workflows": "5.33.3",
+    "@strapi/strapi": "5.33.3",
+    "@strapi/types": "5.33.3",
+    "@strapi/typescript-utils": "5.33.3",
+    "@strapi/upload": "5.33.3",
+    "@strapi/utils": "5.33.3"
+  }
+}
