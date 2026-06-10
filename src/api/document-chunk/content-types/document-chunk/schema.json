@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "document_chunks",
+  "info": {
+    "singularName": "document-chunk",
+    "pluralName": "document-chunks",
+    "displayName": "Document Chunk",
+    "description": "Text chunks of a Document for RAG"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "text",
+      "required": true
+    },
+    "chunk_index": {
+      "type": "integer",
+      "required": true
+    },
+    "metadata": {
+      "type": "json"
+    },
+    "document": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::document.document"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "documents",
+  "info": {
+    "singularName": "document",
+    "pluralName": "documents",
+    "displayName": "Document",
+    "description": "Uploaded documents for RAG (Retrieval-Augmented Generation)"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "original_name": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "byte_size": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "processing",
+        "success",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "chunk_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "error_message": {
+      "type": "string"
+    },
+    "workspace": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::workspace.workspace"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

@@ -24,6 +24,8 @@
     },
     "latency_ms": { "type": "integer" },
     "tokens_used": { "type": "integer" },
+    "estimated_cost_usd": { "type": "decimal" },
+    "model_used": { "type": "string" },
     "error_message": { "type": "string" },
     "workspace": {
       "type": "relation",

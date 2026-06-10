@@ -60,6 +60,14 @@ const QUEUE_CONFIGS = {
       removeOnFail: { count: 50 },
     },
   },
+  'document-processing': {
+    defaultJobOptions: {
+      attempts: 3,
+      backoff: { type: 'exponential', delay: 2000 },
+      removeOnComplete: { count: 500 },
+      removeOnFail: { count: 200 },
+    },
+  },
   'email': {
     defaultJobOptions: {
       attempts: parseInt(process.env.JOB_MAX_RETRIES_EMAIL || '5', 10),
@@ -112,6 +120,21 @@ function initQueues() {
  */
 function initWorkers() {
   const connection = getRedisConnection();
+
+  // Document Processing Worker
+  workers['document-processing'] = new Worker(
+    'document-processing',
+    async (job) => {
+      const documentService = require('../api/document/services/document-processor');
+      const { documentId } = job.data;
+      logger.info(`Processing document job`, { jobId: job.id, documentId });
+      return documentService.processDocument(documentId);
+    },
+    {
+      connection,
+      concurrency: parseInt(process.env.JOB_CONCURRENCY_DOCUMENT || '2', 10),
+    }
+  );
 
   // Embedding Worker
   workers['embedding'] = new Worker(
